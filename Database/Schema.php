@@ -36,7 +36,7 @@ class Schema
      * @param string $table Table name
      * @param lambda $block Table configuration block
      *
-     * @return
+     * @return boolean
      */
     public static function create($table, $block)
     {
@@ -45,6 +45,13 @@ class Schema
         return $connection->query($sql);
     }
 
+    /**
+     * Drop table.
+     *
+     * @param string $table Table name
+     *
+     * @return boolean
+     */
     public static function drop($table)
     {
         $connection = Database::connection();
