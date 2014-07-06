@@ -73,8 +73,8 @@ class Table
     public $primaryKey;
 
     /**
-     * @param string $name  Table name
-     * @param lambda $block Table config block
+     * @param string   $name  Table name
+     * @param callable $block Table config block
      *
      * @example
      *     $table = new Table('users', function($t)){

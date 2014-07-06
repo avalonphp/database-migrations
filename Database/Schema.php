@@ -33,8 +33,8 @@ class Schema
     /**
      * Create table.
      *
-     * @param string $table Table name
-     * @param lambda $block Table configuration block
+     * @param string   $table Table name
+     * @param callable $block Table configuration block
      *
      * @return boolean
      */
