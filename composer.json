@@ -1,0 +1,22 @@
+{
+    "name": "radium/schema-builder",
+    "description": "Schema builder for Radium.",
+    "keywords": ["framework", "radium", "schema", "migration", "builder"],
+    "license": "Apache-2.0",
+    "minimum-stability": "dev",
+    "authors": [
+        {
+            "name": "Jack Polgar",
+            "email": "jack@polgar.id.au"
+        }
+    ],
+    "require": {
+        "php": ">=5.3.0",
+        "radium/radium": "dev-master"
+    },
+    "autoload": {
+        "psr-4": {
+            "Radium\\Database\\": "Database"
+        }
+    }
+}
