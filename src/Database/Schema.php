@@ -20,6 +20,8 @@ namespace Radium\Database;
 
 use Radium\Database;
 use Radium\Database\Schema\Table;
+use Radium\Database\Schema\Grammar\MySQL as MySQLGrammar;
+use Radium\Database\Schema\Grammar\SQLite as SQLiteGrammar;
 
 /**
  * Database Schema manipulator.
@@ -30,6 +32,8 @@ use Radium\Database\Schema\Table;
  */
 class Schema
 {
+    protected static $grammar;
+
     /**
      * Create table.
      *
@@ -40,9 +44,8 @@ class Schema
      */
     public static function create($table, $block)
     {
-        $connection = Database::connection();
-        $sql = (new Table($table, $block))->create($connection->grammar());
-        return $connection->query($sql);
+        $sql = (new Table($table, $block))->create(static::grammar());
+        return Database::connection()->query($sql);
     }
 
     /**
@@ -55,6 +58,26 @@ class Schema
     public static function drop($table)
     {
         $connection = Database::connection();
-        return $connection->query($connection->grammar()->dropTable($table));
+        return $connection->query(static::grammar()->dropTable($table));
+    }
+
+    /**
+     * Returns the database grammar object.
+     *
+     * @return object
+     */
+    public static function grammar()
+    {
+        if (static::$grammar) {
+            return static::$grammar;
+        }
+
+        $driver = Database::connection()->getAttribute(\PDO::ATTR_DRIVER_NAME);
+
+        if ($driver == 'mysql') {
+            return static::$grammar = new MySQLGrammar;
+        } else if ($driver == 'sqlite') {
+            return static::$grammar = new SQLiteGrammar;
+        }
     }
 }
