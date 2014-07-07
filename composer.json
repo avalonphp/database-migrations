@@ -16,7 +16,7 @@
     },
     "autoload": {
         "psr-4": {
-            "Radium\\Database\\": "Database"
+            "Radium\\Database\\": "src/Database/"
         }
     }
 }
