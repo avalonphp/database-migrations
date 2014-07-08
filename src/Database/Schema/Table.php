@@ -73,6 +73,19 @@ class Table
     public $primaryKey;
 
     /**
+     * Base integer defaults.
+     *
+     * @var array
+     */
+    protected static $baseIntegerDefaults = array(
+        'unsigned'      => false,
+        'nullable'      => true,
+        'default'       => null,
+        'autoIncrement' => false,
+        'primary'       => false
+    );
+
+    /**
      * @param string   $name  Table name
      * @param callable $block Table config block
      *
@@ -104,7 +117,7 @@ class Table
      * @param array  $options Column options
      *
      * @example
-     *     $table->addColumn('group_id', array('type' => "INT", 'length' => 11, 'default' => 2));
+     *     $table->addColumn('group_id', array('type' => "INT", 'size' => 11, 'default' => 2));
      */
     public function addColumn($name, array $options)
     {
@@ -128,10 +141,10 @@ class Table
     public function varchar($name, array $options = array())
     {
         $defaults = array(
-            'type'      => "VARCHAR",
-            'length'    => 255,
-            'default'   => null,
-            'nullable'  => true,
+            'type'     => "VARCHAR",
+            'size'     => 255,
+            'default'  => null,
+            'nullable' => true,
         );
 
         $this->addColumn($name, $options + $defaults);
@@ -146,14 +159,37 @@ class Table
     public function int($name, array $options = array())
     {
         $defaults = array(
-            'type'          => "INT",
-            'length'        => 11,
-            'unsigned'      => false,
-            'nullable'      => true,
-            'default'       => null,
-            'autoIncrement' => false,
-            'primary'       => false
+            'type' => "INT",
+            'size' => 11
         );
+
+        $this->baseInteger($name, $defaults + $options);
+    }
+
+    /**
+     * Add tiny integer column.
+     *
+     * @param string $name    Column name
+     * @param array  $options TINYINT options
+     */
+    public function tinyint($name, array $options = array())
+    {
+        $defaults = array(
+            'type' => "TINYINT",
+            'size' => 4
+        );
+
+        $this->baseInteger($name, $defaults + $options);
+    }
+
+    /**
+     * Merges the different integers with the base integer defaults.
+     *
+     * @param string $name    Column name
+     * @param array  $options Integer column options
+     */
+    protected function baseInteger($name, array $options = array()) {
+        $defaults = $options + static::$baseIntegerDefaults;
 
         if (isset($options['primary'])) {
             $this->primaryKey = $name;

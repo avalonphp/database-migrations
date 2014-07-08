@@ -84,6 +84,7 @@ class MySQL extends Grammar
                 break;
 
             case 'INT':
+            case 'TINYINT':
                 $sql[] = $this->compileInt($column);
                 break;
 
@@ -124,7 +125,7 @@ class MySQL extends Grammar
      */
     protected function compileInt(array $column)
     {
-        $sql = array("int({$column['length']})");
+        $sql = array(strtolower($column['type']) . "({$column['size']})");
 
         if ($column['unsigned']) {
             $sql[] = 'unsigned';
@@ -142,7 +143,7 @@ class MySQL extends Grammar
      */
     protected function compileVarChar(array $column)
     {
-        return "varchar({$column['length']})";
+        return "varchar({$column['size']})";
     }
 
     /**

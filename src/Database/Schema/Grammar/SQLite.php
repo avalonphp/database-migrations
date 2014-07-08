@@ -77,6 +77,7 @@ class SQLite extends Grammar
                 break;
 
             case 'INT':
+            case 'TINYINT':
                 $sql[] = $this->compileInt($column);
                 break;
 
