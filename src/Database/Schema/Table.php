@@ -73,6 +73,16 @@ class Table
     public $primaryKey;
 
     /**
+     * Column defaults
+     *
+     * @var array
+     */
+    protected static $defaults = array(
+        'default'  => null,
+        'nullable' => true
+    );
+
+    /**
      * Base integer defaults.
      *
      * @var array
@@ -143,9 +153,7 @@ class Table
         $defaults = array(
             'type'     => "VARCHAR",
             'size'     => 255,
-            'default'  => null,
-            'nullable' => true,
-        );
+        ) + static::$defaults;
 
         $this->addColumn($name, $options + $defaults);
     }
@@ -196,6 +204,19 @@ class Table
         }
 
         $this->addColumn($name, $options + $defaults);
+    }
+
+    /**
+     * Add boolean column.
+     *
+     * @param string $name
+     * @param array  $options
+     */
+    public function bool($name, array $options = array())
+    {
+        $options['type'] = 'BOOL';
+        
+        $this->addColumn($name, $options + static::$defaults);
     }
 
     /**

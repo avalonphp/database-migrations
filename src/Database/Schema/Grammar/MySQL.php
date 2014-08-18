@@ -92,6 +92,10 @@ class MySQL extends Grammar
                 $sql[] = $this->compileInt($column);
                 break;
 
+            case 'BOOL':
+                $sql[] = "tinyint(1)";
+                break;
+
             case 'DATETIME':
                 $sql[] = 'datetime';
                 break;
@@ -163,6 +167,8 @@ class MySQL extends Grammar
             return;
         } else if ($column['default'] === null) {
             return "DEFAULT NULL";
+        } else if (is_bool($column['default']) or is_integer($column['default'])) {
+            return "DEFAULT " . intval($column['default']);
         } else {
             return "DEFAULT '{$column['default']}'";
         }
