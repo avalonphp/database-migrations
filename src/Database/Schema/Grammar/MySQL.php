@@ -83,6 +83,10 @@ class MySQL extends Grammar
                 $sql[] = "TEXT";
                 break;
 
+            case 'LONGTEXT':
+                $sql[] = 'longtext';
+                break;
+
             case 'INT':
             case 'TINYINT':
                 $sql[] = $this->compileInt($column);

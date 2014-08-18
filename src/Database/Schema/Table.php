@@ -216,6 +216,23 @@ class Table
     }
 
     /**
+     * Add long-text column.
+     *
+     * @param string $name    Columm name
+     * @param array  $options LONGTEXT options
+     */
+    public function longtext($name, array $options = array())
+    {
+        $defaults = array(
+            'type'     => "LONGTEXT",
+            'default'  => null,
+            'nullable' => true
+        );
+
+        return $this->addColumn($name, $options + $defaults);
+    }
+
+    /**
      * DateTime column.
      *
      * @param string $name    Columm name
