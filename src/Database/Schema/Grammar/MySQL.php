@@ -80,7 +80,7 @@ class MySQL extends Grammar
                 break;
 
             case 'TEXT':
-                $sql[] = "TEXT";
+                $sql[] = "text";
                 break;
 
             case 'LONGTEXT':
