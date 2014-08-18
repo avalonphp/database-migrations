@@ -159,6 +159,22 @@ class Table
     }
 
     /**
+     * Add big integer column.
+     *
+     * @param string $name    Columm name
+     * @param array  $options BIGINT options
+     */
+    public function bigint($name, array $options = array())
+    {
+        $defaults = array(
+            'type' => "BIGINT",
+            'size' => 20
+        );
+
+        $this->baseInteger($name, $defaults + $options);
+    }
+
+    /**
      * Add integer column.
      *
      * @param string $name    Columm name
@@ -197,13 +213,11 @@ class Table
      * @param array  $options Integer column options
      */
     protected function baseInteger($name, array $options = array()) {
-        $defaults = $options + static::$baseIntegerDefaults;
-
         if (isset($options['primary'])) {
             $this->primaryKey = $name;
         }
 
-        $this->addColumn($name, $options + $defaults);
+        $this->addColumn($name, $options + static::$baseIntegerDefaults);
     }
 
     /**

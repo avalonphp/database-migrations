@@ -88,6 +88,7 @@ class MySQL extends Grammar
                 break;
 
             case 'INT':
+            case 'BIGINT':
             case 'TINYINT':
                 $sql[] = $this->compileInt($column);
                 break;
