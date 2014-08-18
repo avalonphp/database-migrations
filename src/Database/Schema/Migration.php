@@ -44,7 +44,7 @@ abstract class Migration
      */
     final protected function createTable($name, callable $func)
     {
-        Schema::create($name, $func);
+        return Schema::create($name, $func);
     }
 
     /**
@@ -52,6 +52,6 @@ abstract class Migration
      */
     final protected function dropTable($name)
     {
-        Schema::drop($name);
+        return Schema::drop($name);
     }
 }
