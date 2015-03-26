@@ -95,13 +95,13 @@ class Migrator
         $classInfo = new ReflectionClass($className);
         $fileName  = str_replace('.php', '', basename($classInfo->getFileName()));
 
-        $result = $this->connection->createQueryBuilder()->select('*')
+        $result = $this->connection->createQueryBuilder()->select('version')
             ->from('schema_migrations')
             ->where('version = ?')
             ->setParameter(0, $fileName)
             ->execute();
 
-        if (!$result->rowCount()) {
+        if (!count($result->fetchAll())) {
             return $fileName;
         } else {
             return false;
