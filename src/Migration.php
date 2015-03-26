@@ -110,7 +110,7 @@ abstract class Migration
     final protected function timestamps($table)
     {
         $table->addColumn("created_at", "datetime");
-        $table->addColumn("updated_at", "datetime");
+        $table->addColumn("updated_at", "datetime", ['notnull' => false]);
     }
 
     /**
