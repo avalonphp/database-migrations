@@ -77,7 +77,8 @@ abstract class Migration
     final protected function createTable($name, callable $func)
     {
         $table = $this->schema->createTable($name);
-        $table->addColumn("id", "bigint");
+        $table->addColumn("id", "bigint", ['autoincrement' => true]);
+        $table->setPrimaryKey(['id']);
 
         $func($table);
 
