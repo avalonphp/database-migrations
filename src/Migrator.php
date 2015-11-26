@@ -42,6 +42,20 @@ class Migrator
     }
 
     /**
+     * Load migrations from the specified directory.
+     *
+     * @param string $directory
+     */
+    public function loadMigrations($directory)
+    {
+        foreach (scandir($directory) as $file) {
+            if ($file !== '.' && $file !== '..') {
+                require "{$directory}/{$file}";
+            }
+        }
+    }
+
+    /**
      * Handles the execution of migrations.
      *
      * @param string $direction
