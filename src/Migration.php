@@ -1,7 +1,7 @@
 <?php
 /*!
  * Avalon
- * Copyright 2011-2015 Jack Polgar
+ * Copyright 2011-2015 Jack P.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -25,7 +25,7 @@ use Doctrine\DBAL\Schema\Schema;
  * Base migration class.
  *
  * @package Avalon\Database
- * @author Jack Polgar <jack@polgar.id.au>
+ * @author Jack P.
  */
 abstract class Migration
 {
@@ -76,7 +76,7 @@ abstract class Migration
      */
     final protected function createTable($name, callable $func)
     {
-        $table = $this->schema->createTable($name);
+        $table = $this->schema->createTable($this->connection->prefix . $name);
         $table->addColumn("id", "bigint", ['autoincrement' => true]);
         $table->setPrimaryKey(['id']);
 
@@ -99,7 +99,7 @@ abstract class Migration
      */
     final protected function dropTable($name)
     {
-        return $this->schema->dropTable($name);
+        return $this->schema->dropTable($this->connection->prefix . $name);
     }
 
     /**
