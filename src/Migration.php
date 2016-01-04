@@ -1,7 +1,7 @@
 <?php
 /*!
  * Avalon
- * Copyright 2011-2015 Jack P.
+ * Copyright 2011-2016 Jack P.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -116,14 +116,10 @@ abstract class Migration
     /**
      * Execute the migrations queries.
      */
-    final function execute()
+    final public function execute()
     {
         $platform = $this->connection->getDatabasePlatform();
         $queries  = $this->currentSchema->getMigrateToSql($this->schema, $platform);
-
-        // echo "<pre>";
-        // print_r($queries);
-        // exit;
 
         foreach ($queries as $query) {
             $this->connection->query($query);
